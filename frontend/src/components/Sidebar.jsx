@@ -5,16 +5,19 @@ import SidebarSkeleton from "./skeletons/SidebarSkeleton";
 import { Users } from "lucide-react";
 
 function Sidebar() {
-  const { getUsers, users, selectedUser, setSelectedUser, isUsersLoading } = useChatStore();
+  const { getUsers, users, selectedUser, setSelectedUser, isUsersLoading } =
+    useChatStore();
 
   const { onlineUsers } = useAuthStore();
-  const [showOnlineOnly, setShowOnlineOnly] = useState(false); 
+  const [showOnlineOnly, setShowOnlineOnly] = useState(false);
 
   useEffect(() => {
     getUsers();
   }, [getUsers]);
 
-  const filteredUsers = showOnlineOnly?users.filter(user => onlineUsers.includes(user._id)) : users;
+  const filteredUsers = showOnlineOnly
+    ? users.filter((user) => onlineUsers.includes(user._id))
+    : users;
 
   if (isUsersLoading) return <SidebarSkeleton />;
 
@@ -36,7 +39,9 @@ function Sidebar() {
             />
             <span className="text-sm">Show Online Only</span>
           </label>
-          <span className="text-sm text-zinc-500">({onlineUsers.length-1} online)</span>
+          <span className="text-sm text-zinc-500">
+            ({onlineUsers.length - 1} online)
+          </span>
         </div>
       </div>
 
@@ -80,9 +85,7 @@ function Sidebar() {
         ))}
 
         {filteredUsers.length === 0 && (
-          <div className="text-center text-zinc-500 py-4">
-            No online users
-          </div>
+          <div className="text-center text-zinc-500 py-4">No online users</div>
         )}
       </div>
     </aside>

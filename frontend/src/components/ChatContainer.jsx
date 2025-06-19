@@ -5,11 +5,17 @@ import ChatHeader from "./ChatHeader";
 import MessageInput from "./MessageInput";
 import MessageSkeleton from "./skeletons/MessageSkeleton";
 import { useAuthStore } from "../store/useAuthStore";
-import { formatMessageTime } from "../lib/utils"
+import { formatMessageTime } from "../lib/utils";
 
 function ChatContainer() {
-  const { messages, getMessages, isMessagesLoading, selectedUser, subscribeToMessages, unsubscribeFromMessages } =
-    useChatStore();
+  const {
+    messages,
+    getMessages,
+    isMessagesLoading,
+    selectedUser,
+    subscribeToMessages,
+    unsubscribeFromMessages,
+  } = useChatStore();
 
   const { authUser } = useAuthStore();
   const messagesEndRef = useRef(null);
@@ -19,14 +25,19 @@ function ChatContainer() {
 
     subscribeToMessages();
 
-    return ()=> unsubscribeFromMessages();
-  }, [getMessages, selectedUser._id,subscribeToMessages, unsubscribeFromMessages]);
+    return () => unsubscribeFromMessages();
+  }, [
+    getMessages,
+    selectedUser._id,
+    subscribeToMessages,
+    unsubscribeFromMessages,
+  ]);
 
-  useEffect(()=>{
-    if (messagesEndRef.current&& messages) {
+  useEffect(() => {
+    if (messagesEndRef.current && messages) {
       messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
     }
-  },[messages]);
+  }, [messages]);
 
   if (isMessagesLoading) {
     return (
@@ -69,7 +80,7 @@ function ChatContainer() {
               </time>
             </div>
             <div className="chat-bubble flex flex-col">
-                {message.image && (
+              {message.image && (
                 <img
                   src={message.image}
                   alt="Attachment"
@@ -77,7 +88,6 @@ function ChatContainer() {
                 />
               )}
               {message.text && <p>{message.text}</p>}
-
             </div>
           </div>
         ))}

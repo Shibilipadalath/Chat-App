@@ -26,4 +26,4 @@ function NoChatSelected() {
   );
 }
 
-export default NoChatSelected
+export default NoChatSelected;
